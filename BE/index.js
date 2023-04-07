@@ -17,7 +17,7 @@ app.get('/login/:email', async (req, res) => {
         const result = await getUserByEmail(req, res, pool, email )
         res.send(result)
     }catch (err) {
-        res.status(404).send(err)
+        res.status(err)
     }
     
 });
