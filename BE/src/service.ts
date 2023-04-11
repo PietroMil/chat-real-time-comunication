@@ -1,7 +1,9 @@
 import { Pool, QueryResult } from 'pg';
+import { GenericError } from './interfaces/error.interface';
+import { User } from './interfaces/user.interface';
 
 
-export const getUserByEmail = ( pool: Pool, email: string) => {
+export const getUserByEmail = ( pool: Pool, email: string): Promise<User | GenericError> => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM users WHERE email = $1', [email], (error: Error , results: QueryResult) => {
             if (error) {  
