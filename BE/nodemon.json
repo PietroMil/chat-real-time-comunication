@@ -1,0 +1,9 @@
+{
+  "watch": ["./"],
+  "ext": "js, ts, json",
+  "ignore": ["**/*.spec.ts", ".git", "node_modules", "logs"],
+  "verbose": true,
+  "execMap": {
+    "js": "node --harmony"
+  }
+}
