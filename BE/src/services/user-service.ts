@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
-import { GenericError } from './interfaces/error.interface';
-import { User } from './interfaces/user.interface';
+import { GenericError } from '../interfaces/error.interface';
+import { User } from '../interfaces/user.interface';
 
 
 export const getUserByEmail = ( pool: Pool, email: string): Promise<User | GenericError> => {

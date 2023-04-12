@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { DataService } from 'src/app/services/data.service';
+import { WebSocketService } from 'src/app/services/ws.service';
 
 @Component({
   selector: 'app-login-page',
@@ -14,7 +15,7 @@ export class LoginPageComponent {
 
   errorMessage: string = ""
 
-  constructor(private router: Router, private api: ApiService, private dataService: DataService){}
+  constructor(private router: Router, private api: ApiService, private dataService: DataService, private webSocket: WebSocketService){}
 
   public handleClickLogin(email: string){
     this.api.getLogin(email).subscribe({
@@ -22,6 +23,7 @@ export class LoginPageComponent {
       next: (data: User) => {
       this.dataService.setUser(data)
       this.router.navigate(['./conversations'])
+      this.webSocket.start()
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.statusText)

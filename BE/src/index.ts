@@ -1,29 +1,20 @@
-import express from 'express';
-import pg from 'pg'
-import { getUserByEmail } from './service';
-import config from '../config.json'
-import { GenericError } from './interfaces/error.interface';
-import cors from 'cors';
+import express from "express";
+import cors from "cors";
+import { router } from "./controller";
+import * as webSocket from "./websocket";
 
-const { Pool } = pg
+const server = () => {
+  const app = express();
+  const port = 3000;
+  app.use(cors());
 
-const app = express();
-const port = 3000;
-app.use(cors());
+  app.use(router);
 
-const pool = new Pool(config.postgres)
+  app.listen(port, () => console.log(`Express app running on port ${port}!`));
+};
 
-//GET by EMAIL
-app.get("/login/:email", async (req, res) => {
-  const email = req.params.email;
-  getUserByEmail(pool, email).then(
-    (result) => {
-      res.send(result);
-    },
-    (error: GenericError) => {
-      res.status(error.status).json(error.message);
-    }
-  );
-});
+//server
+server()
 
-app.listen(port, () => console.log(`Express app running on port ${port}!`));
+//webSocket
+webSocket.open()
