@@ -23,7 +23,7 @@ export class LoginPageComponent {
       next: (data: User) => {
       this.dataService.setUser(data)
       this.router.navigate(['./conversations'])
-      this.webSocket.start()
+      this.webSocket.start(data.id)
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.statusText)

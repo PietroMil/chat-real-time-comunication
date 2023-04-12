@@ -1,6 +1,6 @@
 import { Router } from "express";
 import pg from "pg";
-import { getUserByEmail } from "./services/user-service";
+import { getUserByEmail, updateUserData } from "./services/user-service";
 import config from "../config.json";
 import { GenericError } from "./interfaces/error.interface";
 
@@ -20,3 +20,6 @@ router.get("/login/:email", async (req, res) => {
     }
   );
 });
+
+
+
