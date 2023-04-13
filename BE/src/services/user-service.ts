@@ -1,6 +1,6 @@
 import { Pool, QueryResult } from 'pg';
-import { GenericError } from './interfaces/error.interface';
-import { User } from './interfaces/user.interface';
+import { GenericError } from '../interfaces/error.interface';
+import { User } from '../interfaces/user.interface';
 
 
 export const getUserByEmail = ( pool: Pool, email: string): Promise<User | GenericError> => {
@@ -13,6 +13,19 @@ export const getUserByEmail = ( pool: Pool, email: string): Promise<User | Gener
             }else{
                 
                 reject({status: 404, message: 'not found'})
+            }
+        })
+    })
+}
+
+export const updateUserData = ( pool: Pool, id: number, ws_id: string, last_login: Date): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+        pool.query('UPDATE users SET ws_id = $1, last_login = $2 WHERE id = $3', [ws_id, last_login, id], (error: Error, results: QueryResult) => {
+            if(error) {
+                reject(false)
+            }else{
+                
+                resolve(results.rowCount === 1)
             }
         })
     })
