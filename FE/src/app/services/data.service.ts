@@ -1,24 +1,19 @@
-
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
+  private _user: User | null = null;
 
-private _user: User | null = null
+  constructor() {}
 
-constructor() { }
+  getUser(): User | null {
+    return this._user;
+  }
 
-getUser(): User|null{
-  return this._user
-}
-
-setUser(user: User): void{
-  this._user = user
-}
-  
-
+  setUser(user: User): void {
+    this._user = user;
+  }
 }
