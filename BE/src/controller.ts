@@ -3,6 +3,7 @@ import pg from "pg";
 import { getUserByEmail, updateUserData } from "./services/user-service";
 import config from "../config.json";
 import { GenericError } from "./interfaces/error.interface";
+import { getCoversetionsByUserID } from "./services/message-service";
 
 const { Pool } = pg;
 export const router = Router();
@@ -20,6 +21,18 @@ router.get("/login/:email", async (req, res) => {
     }
   );
 });
+
+router.get("/message/:id", async (req, res) => {
+  const id = +req.params.id
+  getCoversetionsByUserID(pool, id).then(
+    (results) => {
+      res.send(results);
+    },
+    (error: GenericError) => {
+      res.status(error.status).json(error.message)
+    }
+  )
+})
 
 
 
