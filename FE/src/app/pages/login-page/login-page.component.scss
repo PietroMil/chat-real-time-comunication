@@ -3,6 +3,7 @@
     display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 100;
 
 
 
@@ -10,8 +11,9 @@
     width: 60%;
     margin: auto;
     padding: 20px;
-   
-    background-color: rgb(237, 239, 237);
+    box-shadow: -1px 3px 10px 2px #88888833;
+
+    background-color: rgb(255, 255, 255);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
     >label{
@@ -25,6 +27,8 @@
         width: 70%;
         padding-left: 20px;
         margin-bottom: 20px;
+        box-shadow: 1px 2px 12px 0px rgba(136, 136, 136, 0.2);
+
     }
     > button {
         font-family: Verdana, Geneva, Tahoma, sans-serif;

@@ -11,7 +11,7 @@ export const getCoversetionsByUserID = (
         `select
         m."date",
         m.message,
-        users.id as userId,
+        users.id as user_id,
         users.full_name
       from
         messages m
@@ -46,7 +46,13 @@ export const getCoversetionsByUserID = (
         if (error) {
           reject({ status: 500, message: "generic error" });
         } else if (results.rows.length > 0) {
-          resolve(results.rows);
+          resolve(results.rows.map(item => {
+            item.userId = item.user_id;
+            item.fullName = item.full_name;
+            delete item.user_id;
+            delete item.full_name;
+            return item;
+          }))
         } else {
           reject({ status: 404, message: "not found" });
         }

@@ -1,0 +1,8 @@
+<div class="message-container" (click)="handleOnClick()">
+    <div class="message-avatar"><p>{{initials}}</p></div>
+    <div class="message-name-container">
+        <div class="message-name" title="{{conversationDetail.fullName}}">{{ conversationDetail.fullName }}</div>
+        <div class="message-text">{{ conversationDetail.message }}</div>
+    </div>
+    <div class="message-date">{{ dateObject | date:'shortTime'}}</div>
+</div>
