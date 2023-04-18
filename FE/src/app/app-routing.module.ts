@@ -8,7 +8,7 @@ import { UserGuard } from './guards/user.guard';
 const routes: Routes = [
   { path: '', component: LoginPageComponent},
   { path: 'conversations', component: ConversationsPageComponent, canActivate: [UserGuard]},
-  { path: 'chat', component: ChatPageComponent, canActivate: [UserGuard] }
+  { path: 'chat/:conversationId', component: ChatPageComponent, canActivate: [UserGuard] }
 ];
 
 @NgModule({
