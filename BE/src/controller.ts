@@ -4,7 +4,7 @@ import { getUserByEmail, updateUserData } from "./services/user-service";
 import config from "../config.json";
 import { GenericError } from "./interfaces/error.interface";
 import { getCoversetionsByUserID } from "./services/messages-service";
-import { getChatByUserId } from "./services/chats-service";
+import { getChatByUserId, postChatByUserId } from "./services/chats-service";
 
 const { Pool } = pg;
 export const router = Router();
@@ -47,6 +47,24 @@ router.get("/chat/:userId/:conversationUserId", async (req, res) => {
     },
     (error: GenericError) => {
       res.status(error.status).json(error.message)
+    }
+  )
+})
+
+router.post("/chat/:userId/:conversationUserId",async (req, res) => {
+  const userId = +req.params.userId
+  const conversationUserId = +req.params.conversationUserId
+  const date = new Date()
+  const text  = req.body.text
+  console.log(req.body.text)
+  postChatByUserId(pool, userId, conversationUserId, date, text).then(
+    (results)=> {
+      res.send(results)
+     
+    },
+    (error: GenericError) => {
+      res.status(error.status).json(error.message)
+
     }
   )
 })

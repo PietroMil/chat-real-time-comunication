@@ -1,4 +1,3 @@
-
 <div style="background-color: rgb(194, 199, 232); width: 100%; height: 75px">
     <div style="display: flex; flex-direction: row;">
         <div style="padding: 20px;" (click)="backClick()">
@@ -18,15 +17,13 @@
 
 
 <div style="height: calc(100% - 150px); overflow-y: scroll;" #chatContainer>
-    
     <div *ngFor="let chat of userChat">
         <div [ngStyle]="{'float': chat.fromId !== this.user!.id ? 'left' : 'right', 'background-color': chat.fromId !== this.user!.id ? '#e3e3e3' : '#eef9e8'}"
             class="chat-box">
             <div style="text-align: right; font-size: small;">{{chat.date | date:'shortTime'}}</div>
             <div>{{chat.message}}</div>
         </div>
-   
-</div>
+    </div>
 </div>
 
 <div style="height: 71px">
