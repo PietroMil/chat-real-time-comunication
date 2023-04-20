@@ -27,10 +27,10 @@
 </div>
 
 <div style="height: 71px">
-    <textarea type="text" placeholder="message..."></textarea>
-    <div style="position: absolute;
+    <textarea #text type="text" placeholder="message..."></textarea>
+    <div  style="position: absolute;
         right: 8px;
-        bottom: 25px;" (click)="backClick()">
+        bottom: 25px;" (click)="onSendClick(text.value)" >
         <svg xmlns="http://www.w3.org/2000/svg" id="Group_10235" data-name="Group 10235" width="25" height="25"
             viewBox="0 0 173.64 149.826" fill="#8a8dc8">
             <path id="Path_8370" data-name="Path 8370"

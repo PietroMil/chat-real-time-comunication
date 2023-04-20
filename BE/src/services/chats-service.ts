@@ -14,6 +14,7 @@ export const getChatByUserId = (
         where from_user_id = $1 OR to_user_id = $1
            ) q 
           where conversationId = $2
+          order by "date"
         `,
       [userId, conversationUserId],
       (error: Error, results: QueryResult) => {
@@ -52,7 +53,6 @@ export const postChatByUserId = (
           console.log(error);
           reject({ status: 500, message: "generic error" });
         } else if (results.rowCount > 0) {
-          console.log(results.rows)
           resolve(
             
             results.rows

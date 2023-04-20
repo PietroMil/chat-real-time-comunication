@@ -5,6 +5,7 @@ import config from "../config.json";
 import { GenericError } from "./interfaces/error.interface";
 import { getCoversetionsByUserID } from "./services/messages-service";
 import { getChatByUserId, postChatByUserId } from "./services/chats-service";
+import * as webSocket from "./websocket";
 
 const { Pool } = pg;
 export const router = Router();
@@ -24,7 +25,7 @@ router.get("/login/:email", async (req, res) => {
 });
 
 router.get("/message/:id", async (req, res) => {
-  console.log(req.params)
+ 
   const id = +req.params.id
   getCoversetionsByUserID(pool, id).then(
     (results) => {
@@ -37,12 +38,10 @@ router.get("/message/:id", async (req, res) => {
 })
 
 router.get("/chat/:userId/:conversationUserId", async (req, res) => {
-  console.log(req.params)
   const userId = +req.params.userId
   const conversationUserId = +req.params.conversationUserId
   getChatByUserId(pool, userId, conversationUserId).then(
     (results) => {
-      console.log(results)
       res.send(results);
     },
     (error: GenericError) => {
@@ -56,11 +55,11 @@ router.post("/chat/:userId/:conversationUserId",async (req, res) => {
   const conversationUserId = +req.params.conversationUserId
   const date = new Date()
   const text  = req.body.text
-  console.log(req.body.text)
   postChatByUserId(pool, userId, conversationUserId, date, text).then(
     (results)=> {
       res.send(results)
-     
+      webSocket.send(userId, conversationUserId, text)
+
     },
     (error: GenericError) => {
       res.status(error.status).json(error.message)

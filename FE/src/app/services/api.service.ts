@@ -3,14 +3,14 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { Conversation } from '../models/conversation.model';
-import { Chat } from '../models/caht.model';
+import { Chat, Message } from '../models/chat.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  baseUrl: string = 'http://localhost:3000'
+  baseUrl: string = 'http://192.168.20.197:3000'
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +26,11 @@ export class ApiService {
   getUserChat(userId: number, conversationId: number): Observable<Chat[]>{
     return this.http.get<Chat[]>(`${this.baseUrl}/chat/${userId}/${conversationId}`)
 
+  }
+
+  postMessage(userId: number, conversationId: number, text: string): Observable<Message>{
+    const body = {text: text} 
+    return this.http.post<Message>(`${this.baseUrl}/chat/${userId}/${conversationId}`, body)
   }
 
 
