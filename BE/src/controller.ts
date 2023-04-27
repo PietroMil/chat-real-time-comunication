@@ -1,6 +1,6 @@
 import { Router } from "express";
 import pg from "pg";
-import { getUserByEmail, updateUserData } from "./services/user-service";
+import { getAllUser, getUserByEmail } from "./services/user-service";
 import config from "../config.json";
 import { GenericError } from "./interfaces/error.interface";
 import { getCoversetionsByUserID } from "./services/messages-service";
@@ -30,6 +30,17 @@ router.get("/message/:id", async (req, res) => {
   getCoversetionsByUserID(pool, id).then(
     (results) => {
       res.send(results);
+    },
+    (error: GenericError) => {
+      res.status(error.status).json(error.message)
+    }
+  )
+})
+
+router.get("/users", async (req, res) => {
+  getAllUser(pool).then(
+    (results) => {
+      res.send(results)
     },
     (error: GenericError) => {
       res.status(error.status).json(error.message)

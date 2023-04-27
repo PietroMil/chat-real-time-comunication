@@ -28,13 +28,9 @@ export class ConversationsRow implements OnInit {
       .split(' ')
       .map((w) => w.charAt(0))
       .join('');
-
-      
- 
   }
 
-  handleOnClick() {
-       
+  handleOnClick() {  
     this.router.navigate([`./chat/${this.conversationDetail.userId}`], { state: {data: this.conversationDetail.fullName}});
   }
 }

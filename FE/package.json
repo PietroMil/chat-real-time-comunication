@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "startIp": "ng serve --host 192.168.20.197",
+    "startIp": "ng serve --host 192.168.2.134",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

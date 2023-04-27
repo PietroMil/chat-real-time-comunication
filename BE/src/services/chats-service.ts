@@ -21,8 +21,8 @@ export const getChatByUserId = (
         if (error) {
           console.log(error);
           reject({ status: 500, message: "generic error" });
-        } else if (results.rows.length > 0) {
-          resolve(
+        } else if (results) {
+          results.rows.length === 0 ? resolve([]) : resolve(
             results.rows.map((item) => {
               item.fromId = item.from_user_id;
               delete item.from_user_id;

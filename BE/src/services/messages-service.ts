@@ -40,12 +40,14 @@ export const getCoversetionsByUserID = (
             OR to_user_id = $1
           group by
             conversationId
+          order by
+         max("date") 
         )`,
         [id],
       (error: Error, results: QueryResult) => {
         if (error) {
           reject({ status: 500, message: "generic error" });
-        } else if (results.rows.length > 0) {
+        } else if (results.rows.length > 0 || results.rows.length === 0) {
           resolve(results.rows.map(item => {
             item.userId = item.user_id;
             item.fullName = item.full_name;

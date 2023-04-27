@@ -5,3 +5,4 @@ export interface User {
     ws_id: string,
     last_login: Date
 }
+

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Chat } from 'src/app/models/chat.model';
 import { User } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -19,6 +19,8 @@ export class ChatPageComponent implements OnInit {
   user: User | null = null;
   userChat: Chat[] = [];
   conversationId: string | null = null;
+  currentDate!: Date;
+ 
 
   chatName: string = '';
   subscription$!: Subscription
@@ -26,19 +28,19 @@ export class ChatPageComponent implements OnInit {
     private api: ApiService,
     private data: DataService,
     private param: ActivatedRoute,
-    private location: Location,
+    private router: Router,
     private _newMessage: NotificationService
   ) {}
 
-
-  
   ngOnInit(): void {
+    this.currentDate = new Date()
    
     this.chatName = history.state.data;
     this.conversationId = this.param.snapshot.paramMap.get('conversationId');
     this.user = this.data.getUser();
     this.getChat(this.user!.id, +this.conversationId!);
     
+
     this.subscription$ = this._newMessage.getMessage().subscribe((data) => {
       this.userChat.push(data)
       setTimeout(() => {
@@ -47,14 +49,17 @@ export class ChatPageComponent implements OnInit {
     })
   }
 
-  
-
+  isDateBeforeToday(date: Date): boolean {
+    // Convert date string to Date object
+    const chatDate = new Date(date);
+    // Compare chat date with current date
+    return chatDate.getDate() < this.currentDate.getDate();
+    }
 
 
   getChat(id: number, conversationId: number) {
     this.api.getUserChat(id, conversationId).subscribe((data) => {
       this.userChat = data;
-      console.log(this.userChat)
       setTimeout(() => {
         this.getHeight();
       }, 100);
@@ -62,12 +67,11 @@ export class ChatPageComponent implements OnInit {
   }
 
   backClick(): void {
-    this.location.back();
+    this.router.navigate(['./conversations']);
   }
 
   getHeight(): void {
     const height = this.element!.nativeElement.scrollHeight;
-    console.log(height)
     this.element?.nativeElement.scrollTo({
       left: 0,
       top: height,
@@ -75,12 +79,10 @@ export class ChatPageComponent implements OnInit {
     });
   }
 
-  onSendClick(text: string): void {
+  onSendClick(text: string ) {
     this.api.postMessage(this.user!.id, +this.conversationId!, text).subscribe(() => {
       this.getChat(this.user!.id, +this.conversationId!)
+      
     })
   }
-
- 
-
 }

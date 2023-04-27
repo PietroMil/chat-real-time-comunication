@@ -10,12 +10,16 @@ import { Chat, Message } from '../models/chat.model';
 })
 export class ApiService {
 
-  baseUrl: string = 'http://192.168.20.197:3000'
+  baseUrl: string = 'http://192.168.2.134:3000'
 
   constructor(private http: HttpClient) { }
 
   getLogin(email: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/login/${email}`)
+  }
+
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users`)
   }
 
   getUserConversation(id: number): Observable<Conversation[]>{
