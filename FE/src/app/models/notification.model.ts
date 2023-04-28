@@ -1,5 +1,5 @@
 export interface Notification {
-    fromId: number,
+    userId: number,
     conversationId: number,
     message: string,
     date: Date

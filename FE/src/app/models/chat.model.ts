@@ -1,5 +1,5 @@
 export interface Chat {
-    fromId: number
+    userId: number
     date: Date
     message: string
 }

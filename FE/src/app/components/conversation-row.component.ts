@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Conversation } from '../models/conversation.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'conversations-row',
@@ -15,12 +17,32 @@ export class ConversationsRow implements OnInit {
   dateObject: Date = new Date();
   message: string = '';
   initials: string = '';
- 
-  constructor(private router: Router) {}
+  messageCounter: number = 0;
+
+
+  subscription$!: Subscription
+
+
+  constructor(private router: Router, private _newMessage: NotificationService) {}
 
   ngOnInit(): void {
+    
+    this.subscription$ = this._newMessage.getMessage().subscribe((data) => {
+    
+      if(this.conversationDetail.userId === data.userId) {
+        this.conversationDetail.message = data.message
+        this.messageCounter++
+      } 
+      
+
+    
+    })
+
+
+
     //take only hour
     const dateString = this.conversationDetail.date;
+    
     this.dateObject = new Date(dateString);
 
     //split name initials

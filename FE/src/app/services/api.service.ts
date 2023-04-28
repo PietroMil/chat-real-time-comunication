@@ -10,7 +10,7 @@ import { Chat, Message } from '../models/chat.model';
 })
 export class ApiService {
 
-  baseUrl: string = 'http://192.168.2.134:3000'
+  baseUrl: string = 'http://192.168.2.246:3000'
 
   constructor(private http: HttpClient) { }
 

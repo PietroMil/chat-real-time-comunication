@@ -24,7 +24,7 @@ export const getChatByUserId = (
         } else if (results) {
           results.rows.length === 0 ? resolve([]) : resolve(
             results.rows.map((item) => {
-              item.fromId = item.from_user_id;
+              item.userId = item.from_user_id;
               delete item.from_user_id;
               return item;
             })

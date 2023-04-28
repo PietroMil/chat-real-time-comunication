@@ -4,7 +4,6 @@ import { Chat } from 'src/app/models/chat.model';
 import { User } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
-import { Location } from '@angular/common';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Subscription } from 'rxjs';
 
@@ -42,7 +41,9 @@ export class ChatPageComponent implements OnInit {
     
 
     this.subscription$ = this._newMessage.getMessage().subscribe((data) => {
+      
       this.userChat.push(data)
+
       setTimeout(() => {
         this.getHeight();
       }, 100);
@@ -59,7 +60,9 @@ export class ChatPageComponent implements OnInit {
 
   getChat(id: number, conversationId: number) {
     this.api.getUserChat(id, conversationId).subscribe((data) => {
+     
       this.userChat = data;
+     
       setTimeout(() => {
         this.getHeight();
       }, 100);

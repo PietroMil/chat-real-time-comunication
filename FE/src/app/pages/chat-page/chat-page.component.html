@@ -17,12 +17,9 @@
 
 <div style="height: calc(100% - 150px); overflow-y: scroll;" #chatContainer>
     <div *ngFor="let chat of userChat">
-       
-        
-
-        <div [ngStyle]="{'float': chat.fromId !== this.user!.id ? 'left' : 'right', 'background-color': chat.fromId !== this.user!.id ? '#e3e3e3' : '#eef9e8'}"
+        <div [ngStyle]="{'float': chat.userId !== this.user!.id ? 'left' : 'right', 'background-color': chat.userId !== this.user!.id ? '#e3e3e3' : '#eef9e8'}"
             class="chat-box">
-            <div style="text-align: right; font-size: small;"> 
+            <div style="text-align: right; font-size: small; color:#0e0e0e8c"> 
                 <div *ngIf="isDateBeforeToday(chat.date)"><i>{{chat.date | date: 'short'}}</i></div>
             <div *ngIf="!isDateBeforeToday(chat.date)"><i>Today</i> {{chat.date | date:'shortTime'}}</div></div>
             <div>{{chat.message}}</div>
@@ -31,7 +28,10 @@
 </div>
 
 <div style="height: 71px">
-    <textarea #text type="text" placeholder="message..."></textarea>
+    <textarea #text type="text" placeholder="message..." (keydown.enter)="
+    onSendClick(text.value); 
+    text.value = ''
+" ></textarea>
     <button  style="position: absolute;
         right: 8px;
         border: none;

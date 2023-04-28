@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class ConversationsPageComponent implements OnInit {
   userConversation: Conversation[] = [];
   user: User | null = null;
+
+
   constructor(private api: ApiService, private data: DataService, private router: Router) {}
 
   public handleUserCoversation(id: number) {
@@ -25,6 +27,9 @@ export class ConversationsPageComponent implements OnInit {
     
     this.user = this.data.getUser();
     this.handleUserCoversation(this.user!.id);
+
+
+
   }
 
   handleOnClick() {  
