@@ -39,10 +39,18 @@ export const getCoversetionsByUserID = (
             from_user_id = $1
             OR to_user_id = $1
           group by
+          	
             conversationId
-          order by
-         max("date") 
-        )`,
+          
+        )
+        group by
+        m."date",
+        m.message,
+        users.id,
+        users.full_name
+        
+            order by
+          m."date" desc`,
         [id],
       (error: Error, results: QueryResult) => {
         if (error) {

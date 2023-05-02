@@ -12,38 +12,22 @@ import { NotificationService } from '../services/notification.service';
 export class ConversationsRow implements OnInit {
   @Input()
   conversationDetail!: Conversation;
-  
 
-  dateObject: Date = new Date();
+ 
+ 
   message: string = '';
   initials: string = '';
-  messageCounter: number = 0;
+ 
 
 
-  subscription$!: Subscription
-
-
-  constructor(private router: Router, private _newMessage: NotificationService) {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     
-    this.subscription$ = this._newMessage.getMessage().subscribe((data) => {
-    
-      if(this.conversationDetail.userId === data.userId) {
-        this.conversationDetail.message = data.message
-        this.messageCounter++
-      } 
-      
-
-    
-    })
-
-
 
     //take only hour
-    const dateString = this.conversationDetail.date;
+ 
     
-    this.dateObject = new Date(dateString);
 
     //split name initials
     this.initials = this.conversationDetail.fullName

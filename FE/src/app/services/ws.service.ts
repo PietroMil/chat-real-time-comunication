@@ -11,7 +11,7 @@ private _webSocket: WebSocket | null = null
 constructor(private _newMessage: NotificationService){}
 
     start(id: number)  {
-        this._webSocket = new WebSocket(`ws://192.168.2.246:6969/${id}`)
+        this._webSocket = new WebSocket(`ws://192.168.20.197:6969/${id}`)
         this._webSocket.addEventListener("open", () => {
           console.log("We are connected");
 
