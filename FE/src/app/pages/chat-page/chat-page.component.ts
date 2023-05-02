@@ -43,6 +43,7 @@ export class ChatPageComponent implements OnInit {
     this.subscription$ = this._newMessage.getMessage().subscribe((data) => {
       
       this.userChat.push(data)
+      
 
       setTimeout(() => {
         this.getHeight();
@@ -53,8 +54,11 @@ export class ChatPageComponent implements OnInit {
   isDateBeforeToday(date: Date): boolean {
     // Convert date string to Date object
     const chatDate = new Date(date);
+    //set today start from midnight
+    this.currentDate.setHours(0, 0, 0, 0)
+
     // Compare chat date with current date
-    return chatDate.getDate() < this.currentDate.getDate();
+    return chatDate < this.currentDate;
     }
 
 

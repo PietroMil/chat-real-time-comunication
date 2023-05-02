@@ -32,10 +32,13 @@ export class ConversationsPageComponent implements OnInit {
         element.messageCounter = 0
       });
       this.userConversation = data;
+      console.log(this.userConversation)
+
     });
   }
 
   ngOnInit() {
+   
     this.user = this.data.getUser();
     this.handleUserCoversation(this.user!.id);
    
@@ -49,7 +52,7 @@ export class ConversationsPageComponent implements OnInit {
           element.date = new Date()
           
           element.messageCounter++
-          
+          console.log(this.userConversation)
         }
       });
     });
