@@ -1,4 +1,4 @@
-import { WebSocketServer } from "ws";
+import ws, { WebSocketServer } from "ws";
 import config from "../config.json";
 import pg from "pg";
 
@@ -27,13 +27,34 @@ export const open = () => {
       if (isUpdate) {
         map.set(id, ws);
 
-        ws.send("connection established");
+        // ws.send("connection established");
         ws.on("close", () => console.log("Client has disconnected!"));
         ws.onerror = function () {
           console.log("websocket error");
         };
       }
-     
     }
   });
 };
+
+// ws istance to send messages
+export const send = (
+  userId: number,
+  conversationId: number,
+  message: string
+) => {
+  const ws = map.get(conversationId);
+  
+  if (ws) {
+    const data = {
+      userId: userId,
+      conversationId: conversationId,
+      message: message,
+    };
+
+    ws.send(JSON.stringify(data));
+  }
+};
+
+//3 param idutende messaggio id ricevente
+//cerco su mappa istanza e si manda un json con il metodo send

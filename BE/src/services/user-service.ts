@@ -3,6 +3,22 @@ import { GenericError } from '../interfaces/error.interface';
 import { User } from '../interfaces/user.interface';
 
 
+export const getAllUser = (pool: Pool): Promise<User[] | GenericError> => {
+    return new Promise((resolve, reject)=> {
+        pool.query('SELECT * FROM users', (error: Error, results: QueryResult) => {
+            if(error) {
+                reject({status: 500, message: 'generic error'})
+
+            }else if (results.rows.length > 0) {
+                resolve(results.rows)
+            }else{
+                
+                reject({status: 404, message: 'not found'})
+            }
+        })
+    })
+}
+
 export const getUserByEmail = ( pool: Pool, email: string): Promise<User | GenericError> => {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM users WHERE email = $1', [email], (error: Error , results: QueryResult) => {

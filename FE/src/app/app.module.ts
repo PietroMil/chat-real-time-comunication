@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { ChatPageComponent } from './pages/chat-page/chat-page.component';
 import { ConversationsPageComponent } from './pages/conversations-page/conversations-page.component';
+import { ConversationsRow } from './components/conversation-row.component';
+import { ContactsPageComponent } from './pages/contacts-page/contacts-page.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { ConversationsPageComponent } from './pages/conversations-page/conversat
     LoginPageComponent,
     ChatPageComponent,
     ConversationsPageComponent,
+    ConversationsRow,
+    ContactsPageComponent
     
   ],
   imports: [

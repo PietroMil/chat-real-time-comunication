@@ -1,0 +1,11 @@
+<div class="message-container" (click)="handleOnClick()">
+    <div class="message-avatar"><p>{{initials}}</p></div>
+    <div class="message-name-container">
+        <div class="message-name" title="{{conversationDetail.fullName}}">{{ conversationDetail.fullName }}</div>
+        
+            <div class="message-text">{{ conversationDetail.message }}</div>
+        
+    </div>
+    <div class="message-date"><div>{{ conversationDetail.date | date:'shortTime'}}</div> <div class="message-counter" *ngIf="conversationDetail.messageCounter >= 1">{{conversationDetail.messageCounter}}</div></div>
+    
+</div>
